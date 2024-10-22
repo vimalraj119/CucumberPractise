@@ -45,7 +45,8 @@ public class StepDefinition {
 	}
 
 	@When("Click on the toggle menu button in the left corner")
-	public void clickOnToggleButton() {
+	public void clickOnToggleButton() throws InterruptedException {
+		Thread.sleep(3000);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebElement clickToggle = driver.findElement(By.xpath("//div[@class='slds-icon-waffle']"));
 		js.executeScript("arguments[0].click();", clickToggle);
@@ -115,9 +116,9 @@ public class StepDefinition {
 	@Then("verify the Opportunity Name")
 	public void verify_the_opportunity_name() {
 		String verOpportunity = driver
-				.findElement(By.xpath("//lightning-formatted-text[text()='vimalraj']"))
+				.findElement(By.xpath("//slot[contains(@class,'slds-page-header')]/lightning-formatted-text"))
 				.getText();
-		if (verOpportunity.contains("vimal")) {
+		if (verOpportunity.equals("vimalraj")|| verOpportunity.equals("vimal")) {
 			System.out.println("Opportunity created successfully");
 		} else {
 			System.out.println("Opportunity was not created");
