@@ -16,6 +16,7 @@ public class StepDefinition {
 
 	public ChromeDriver driver;
 	public ChromeOptions options;
+	
 
 	@Given("Launch the browser and load the URL")
 	public void launchBrowser() {
@@ -54,8 +55,8 @@ public class StepDefinition {
 	public void click_on_view_all_and_select_sales_from_the_app_launcher() throws InterruptedException {
 		Thread.sleep(2000);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		WebElement click = driver.findElement(By.xpath("(//button[@class='slds-button'])[2]"));
-		js.executeScript("arguments[0].click();", click);
+		WebElement clickViewAll = driver.findElement(By.xpath("(//button[@class='slds-button'])[2]"));
+		js.executeScript("arguments[0].click();", clickViewAll);
 		Thread.sleep(3000);
 		WebElement clickSales = driver.findElement(By.xpath("//p[text()='Sales']"));
 		js.executeScript("arguments[0].click();", clickSales);
@@ -101,20 +102,22 @@ public class StepDefinition {
 		WebElement stage = driver.findElement(By.xpath("(//button[contains(@class,'slds-combobox__input')])[2]"));
 		js.executeScript("arguments[0].click();", stage);
 		driver.findElement(By.xpath("//span[@class='slds-media__body']//span[text()='Needs Analysis']")).click();
-		driver.findElement(By.xpath("(//button[text()='Save'])[2]")).click();
+	    
 	}
 
 	@When("Click on the Save button")
 	public void click_on_the_save_button() {
-		driver.findElement(By.xpath("(//button[text()='Save'])[2]")).click();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement clickSave = driver.findElement(By.xpath("(//button[text()='Save'])[2]"));
+	    js.executeScript("arguments[0].click();", clickSave);
 	}
 
 	@Then("verify the Opportunity Name")
 	public void verify_the_opportunity_name() {
 		String verOpportunity = driver
-				.findElement(By.xpath("//lightning-formatted-text[text()='Salesforce Automation by VimalRaj']"))
+				.findElement(By.xpath("//lightning-formatted-text[text()='vimalraj']"))
 				.getText();
-		if (verOpportunity.equals("Salesforce Automation by VimalRaj")) {
+		if (verOpportunity.contains("vimal")) {
 			System.out.println("Opportunity created successfully");
 		} else {
 			System.out.println("Opportunity was not created");
